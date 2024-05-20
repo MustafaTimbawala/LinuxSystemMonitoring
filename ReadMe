@@ -1,0 +1,36 @@
+How did you solve the problem, more specifically the approach to make thee code work in a concurrent fashion: 
+The Process I took to solve the problem was to in a for loop make the pipes and fork and then in the children process call functions, passing the called fucntions the write end of the pipe, and then after the functions are done beign called close the write end and exit, in the parent process the parent waits for the child process and closes the write end of all its pipes and then reads from each of the pipes printing accordingly . 
+If any error came up in the functions they print a customized error message to stderr, if an error came up with the process they called perror and exited.  
+
+
+
+THe functions that are used in this program are : 
+
+int system_info(): This function prints system information such as the system name, machine name, system version, architecture, and software release date  to stdout 
+
+void user_usage(int fd):  this function writes to the pipe identified by fd all the curren users and sessions on the system
+
+void cpu_info(int fd): This writes to the pipe identifies by fd, the number of cores of the system and what percentage of the total cpu is being used   
+
+int parameters(int nbr_samples, int freq): this function prints to standard output the 
+
+void system_usage(int fd): This function takes in a pipe file descriptor and write the how much is physical and virual ram is being used to the pipe 
+
+float get_cpu_useage(): this function calculates the CPU USage according to the intructions given in the assignment and returns it 
+
+void zero(char memory[][1024], int nbr_samples): this takes in a 2d char array memory and number of samples and fills it with strings of new lines
+
+bool is_num(const char *str): THis function takes in an string  and returns true if it is a string of numbers and false otherwise
+
+void ParseArguments( int argc, char** argv, int* arguements): this void function parses through the flags passes to the program and modifies an array of integers
+ arguements passed to it. 
+
+int main(): This function makes pipes and forks so to call and ask its children process to call functions then reads from the pipes of their children process and prints accordingly  
+
+
+
+
+how to compile and run (use) my program:
+Since there is a make file to compile the program all that needs to be done is to call make
+and then to run enter ./my_program into the terminal along with any combination of the following flags 
+--users, --system, --sequential, -- tdelay=x, --samples=x 
